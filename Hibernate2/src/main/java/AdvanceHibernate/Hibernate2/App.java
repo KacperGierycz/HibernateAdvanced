@@ -25,8 +25,8 @@ public class App
     public static void userDetailsDB(){
     	
     	UserDetails user = new UserDetails();
-    	user.setUserId(1);
-    	user.setUserName("Kacper");
+    	user.setUserId(3);
+    	user.setUserName("Third User");
     	
     	Configuration con = new Configuration().configure().addAnnotatedClass(UserDetails.class);    	
     	ServiceRegistry reg= new ServiceRegistryBuilder().applySettings(con.getProperties()).buildServiceRegistry();   	   	
