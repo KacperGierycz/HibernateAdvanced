@@ -1,5 +1,7 @@
 package AdvanceHibernate.Hibernate2;
 
+import java.util.Date;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -27,6 +29,9 @@ public class App
     	UserDetails user = new UserDetails();
     	user.setUserId(3);
     	user.setUserName("Third User");
+    	user.setAddress("FirstOneAddress");
+    	user.setJoinDate(new Date());
+    	user.setDescription("it's a well done user");
     	
     	Configuration con = new Configuration().configure().addAnnotatedClass(UserDetails.class);    	
     	ServiceRegistry reg= new ServiceRegistryBuilder().applySettings(con.getProperties()).buildServiceRegistry();   	   	
@@ -39,6 +44,12 @@ public class App
     	
     	session.getTransaction().commit();
     	session.close();
+    	
+    	user=null;
+    	
+    	session=sf.openSession();
+    	session.beginTransaction();
+    	session.get(UserDetails.class, 3);
     	
     }
     
