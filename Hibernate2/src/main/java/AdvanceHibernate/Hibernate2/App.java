@@ -26,13 +26,19 @@ public class App
     
     public static void userDetailsDB(){
     	
-    	UserDetails user = new UserDetails();
-    	user.setUserId(3);
-    	user.setUserName("Third User");
-    	user.setAddress("FirstOneAddress");
-    	user.setJoinDate(new Date());
-    	user.setDescription("it's a well done user");
+    	UserDetails user1 = new UserDetails();
+    	user1.setUserName("First User");
     	
+    	UserDetails user2 = new UserDetails();
+    	user2.setUserName("Second User");
+    	
+    	UserDetails user3 = new UserDetails();
+    	user3.setUserName("Third User");
+    	
+//    	user.setAddress("FirstOneAddress");
+//    	user.setJoinDate(new Date());
+//    	user.setDescription("it's a well done user");
+//    	
     	Configuration con = new Configuration().configure().addAnnotatedClass(UserDetails.class);    	
     	ServiceRegistry reg= new ServiceRegistryBuilder().applySettings(con.getProperties()).buildServiceRegistry();   	   	
     	SessionFactory sf=con.buildSessionFactory(reg); 	
@@ -40,17 +46,20 @@ public class App
     	session.beginTransaction();
     	
     	
-    	session.save(user);
+    	session.save(user1);
+    	session.save(user2);
+    	session.save(user3);
+
     	
     	session.getTransaction().commit();
     	session.close();
     	
-    	user=null;
-    	
-    	session=sf.openSession();
-    	session.beginTransaction();
-    	session.get(UserDetails.class, 3);
-    	
+//    	user=null;
+//    	
+//    	session=sf.openSession();
+//    	session.beginTransaction();
+//    	user= (UserDetails)session.get(UserDetails.class, 3);
+//    	System.out.println("User Name is: "+user.getUserName());
     }
     
     
