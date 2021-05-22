@@ -29,11 +29,14 @@ public class App
     	UserDetails user1 = new UserDetails();
     	user1.setUserName("First User");
     	
-    	UserDetails user2 = new UserDetails();
-    	user2.setUserName("Second User");
     	
-    	UserDetails user3 = new UserDetails();
-    	user3.setUserName("Third User");
+    	Address addr= new Address();
+    	
+    	addr.setCity("Warsaw");
+    	addr.setState("Mazowsze");
+    	addr.setStreet("Siemiatycka");
+    	addr.setPincode("00122");
+    	user1.setAddress(addr);
     	
 //    	user.setAddress("FirstOneAddress");
 //    	user.setJoinDate(new Date());
@@ -47,8 +50,7 @@ public class App
     	
     	
     	session.save(user1);
-    	session.save(user2);
-    	session.save(user3);
+
 
     	
     	session.getTransaction().commit();
