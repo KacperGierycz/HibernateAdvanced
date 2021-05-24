@@ -60,6 +60,14 @@ public class App
     	session.getTransaction().commit();
     	session.close();
     	
+    	user1 =null;
+    	
+    	session=sf.openSession();
+    	user1=(UserDetails) session.get(UserDetails.class, 1);
+    	session.close();
+    	System.out.println(user1.getListOfAddresses().size());
+    	
+    //	session.close();
     	
     }
     
