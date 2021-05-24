@@ -2,23 +2,16 @@ package AdvanceHibernate.Hibernate2;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.CollectionId;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
 
 @Entity
 @Table( name = "USER_DETAILS")
@@ -27,11 +20,24 @@ public class UserDetails {
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int userId;
 	private String userName;
-	@ElementCollection(fetch=FetchType.EAGER)
-	@JoinTable(name="USER_ADDRESS", joinColumns=@JoinColumn(name="USER_ID"))
+	
+	@OneToMany
+	@JoinTable(name="USER_VEHICLE", joinColumns = @JoinColumn(name="USER_ID"),
+		inverseJoinColumns=@JoinColumn(name="VECHICLE_ID")
+	
+			)
+
+	private Collection<Vehicle> vehicle=new ArrayList();
+	
+//	@JoinColumn(name="VEHICLE_ID")
+//	private Vehicle vehicle;
+	
+	
+//	@ElementCollection(fetch=FetchType.EAGER)
+//	@JoinTable(name="USER_ADDRESS", joinColumns=@JoinColumn(name="USER_ID"))
 //	@GenericGenerator(name="hilo-gen",strategy="increment")
 //	@CollectionId(columns = { @Column(name="ADDRESS_ID") }, generator = "hilo-gen", type = @Type(type="long"))
-	private Collection<Address>listOfAddresses= new ArrayList();
+//	private Collection<Address>listOfAddresses= new ArrayList();
 	
 	
 	
@@ -61,15 +67,27 @@ public class UserDetails {
 
 
 
+public Collection<Vehicle> getVehicle() {
+		return vehicle;
+	}
+	public void setVehicle(Collection<Vehicle> vehicle) {
+		this.vehicle = vehicle;
+	}
+	//	public Vehicle getVehicle() {
+//		return vehicle;
+//	}
+//	public void setVehicle(Vehicle vehicle) {
+//		this.vehicle = vehicle;
+//	}
 	public int getUserId() {
 		return userId;
 	}
-public Collection<Address> getListOfAddresses() {
-		return listOfAddresses;
-	}
-	public void setListOfAddresses(Collection<Address> listOfAddresses) {
-		this.listOfAddresses = listOfAddresses;
-	}
+//public Collection<Address> getListOfAddresses() {
+//		return listOfAddresses;
+//	}
+//	public void setListOfAddresses(Collection<Address> listOfAddresses) {
+//		this.listOfAddresses = listOfAddresses;
+//	}
 	//	public Address getHomeAddress() {
 //		return homeAddress;
 //	}

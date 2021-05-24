@@ -19,10 +19,41 @@ public class App
     {
 
     //	userDetailsDB();
-    	setOfAddresses();
-
+    //	setOfAddresses();
+    	oneToOne();
     	
     }
+    
+    public static void oneToOne() {
+    	
+    	UserDetails user1 = new UserDetails();
+    	user1.setUserName("First User");
+    	
+    	Vehicle vehicle=new Vehicle();
+    	Vehicle vehicle2=new Vehicle();
+
+    	vehicle.setVehivleName("Car");
+    	vehicle2.setVehivleName("Jeep");
+    	
+    	user1.getVehicle().add(vehicle);
+    	user1.getVehicle().add(vehicle2);
+    	
+    	Configuration con = new Configuration().configure().addAnnotatedClass(UserDetails.class).addAnnotatedClass(Vehicle.class);    	
+    	ServiceRegistry reg= new ServiceRegistryBuilder().applySettings(con.getProperties()).buildServiceRegistry();   	   	
+    	SessionFactory sf=con.buildSessionFactory(reg); 	
+    	Session session=sf.openSession();
+    	session.beginTransaction();
+    	
+    	session.save(user1);
+    	session.save(vehicle);
+    	session.save(vehicle2);
+
+
+    	
+    	session.getTransaction().commit();
+    	session.close();
+    }
+    
     
     public static void setOfAddresses() {
     	
@@ -42,8 +73,8 @@ public class App
     	addr2.setStreet("Siemiatycka4");
     	addr2.setPincode("001222");
     	
-    	user1.getListOfAddresses().add(addr);
-    	user1.getListOfAddresses().add(addr2);
+//    	user1.getListOfAddresses().add(addr);
+//    	user1.getListOfAddresses().add(addr2);
     	
     	
     	Configuration con = new Configuration().configure().addAnnotatedClass(UserDetails.class);    	
@@ -65,7 +96,7 @@ public class App
     	session=sf.openSession();
     	user1=(UserDetails) session.get(UserDetails.class, 1);
     	session.close();
-    	System.out.println(user1.getListOfAddresses().size());
+//    	System.out.println(user1.getListOfAddresses().size());
     	
     //	session.close();
     	
