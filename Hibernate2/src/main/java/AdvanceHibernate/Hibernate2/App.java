@@ -37,6 +37,9 @@ public class App
     	
     	user1.getVehicle().add(vehicle);
     	user1.getVehicle().add(vehicle2);
+    	vehicle.getUserList().add(user1);
+    	vehicle2.getUserList().add(user1);
+    	
     	
     	Configuration con = new Configuration().configure().addAnnotatedClass(UserDetails.class).addAnnotatedClass(Vehicle.class);    	
     	ServiceRegistry reg= new ServiceRegistryBuilder().applySettings(con.getProperties()).buildServiceRegistry();   	   	
