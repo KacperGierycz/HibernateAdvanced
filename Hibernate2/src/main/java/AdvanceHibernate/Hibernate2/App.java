@@ -23,10 +23,71 @@ public class App
     //	oneToOne();
     //	Cascade();
     //	InheritanceHibernate();
-    	CrudOperation();
-   
+    //	CrudOperation();
+    //	TransientPersistentDetached();
+    	PersistAfterDetached();
     	
     }
+    
+    public static void PersistAfterDetached() {
+    	Configuration con = new Configuration().configure().addAnnotatedClass(UserDetails.class);    	
+    	ServiceRegistry reg= new ServiceRegistryBuilder().applySettings(con.getProperties()).buildServiceRegistry();   	   	
+    	SessionFactory sf=con.buildSessionFactory(reg); 	
+    	Session session=sf.openSession();
+    	session.beginTransaction();
+    	
+    	UserDetails user = new UserDetails();
+    	
+
+    	
+    	user.setUserName("Test user");
+    	System.out.println(user.getUserName());
+   // 	session.save(user);
+    	
+
+     	UserDetails user2=(UserDetails) session.get(UserDetails.class, 2);
+
+    	System.out.println(user2.getUserName());
+
+    	session.getTransaction().commit();
+    	session.close();
+    	
+//    	user2.setUserName("Updated User xxx");
+    	
+    	session=sf.openSession();
+    	session.beginTransaction();
+    	session.update(user2);
+    	session.getTransaction().commit();
+    	session.close();
+    	
+    	
+    }
+    
+    public static void TransientPersistentDetached() {
+    	
+    	Configuration con = new Configuration().configure().addAnnotatedClass(UserDetails.class);    	
+    	ServiceRegistry reg= new ServiceRegistryBuilder().applySettings(con.getProperties()).buildServiceRegistry();   	   	
+    	SessionFactory sf=con.buildSessionFactory(reg); 	
+    	Session session=sf.openSession();
+    	session.beginTransaction();
+    	
+    	UserDetails user = new UserDetails();
+    	
+
+    	
+    	user.setUserName("Test user");
+    	
+    	session.save(user);
+    	
+    	user.setUserName("Updated User");
+    	user.setUserName("Updated User Again");
+
+    	
+    	session.getTransaction().commit();
+    	session.close();
+    	
+    }
+    
     
     public static void CrudOperation() {   	
     	

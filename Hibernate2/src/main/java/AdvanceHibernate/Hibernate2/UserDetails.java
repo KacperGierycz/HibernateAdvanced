@@ -16,6 +16,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
+@org.hibernate.annotations.SelectBeforeUpdate
 //@Table( name = "USER_DETAILS")
 public class UserDetails {
 	
