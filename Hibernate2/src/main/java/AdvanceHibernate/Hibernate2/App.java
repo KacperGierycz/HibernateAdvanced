@@ -38,18 +38,23 @@ public class App
     	session.beginTransaction();
     	
     	
-    	for(int i=0;i<10;i++) {
-    	UserDetails user1 = new UserDetails();
-    	user1.setUserName("User "+i);
-    	session.save(user1);
-    	}
+//    	for(int i=0;i<10;i++) {
+//    	UserDetails user1 = new UserDetails();
+//    	user1.setUserName("User "+i);
+//    	session.save(user1);
+//    	}
     	
+    	UserDetails user=(UserDetails) session.get(UserDetails.class, 5);
+ 
+    	user.setUserName("Updated User Name");
+  //  	session.update(user);
     	
+  //  	session.delete(user);
     	
     	
      	session.getTransaction().commit();
     	session.close();
-    	
+       	System.out.println("User name pulled up is: "+ user.getUserName());
     	
     }
 
