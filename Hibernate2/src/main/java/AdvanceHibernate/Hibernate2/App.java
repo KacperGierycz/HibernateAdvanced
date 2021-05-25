@@ -21,7 +21,39 @@ public class App
     //	userDetailsDB();
     //	setOfAddresses();
     //	oneToOne();
-    	Cascade();
+    //	Cascade();
+    	InheritanceHibernate();
+    	
+    }
+    
+    
+    public static void InheritanceHibernate() {
+    	
+    	Vehicle vehicle=new Vehicle();
+    	vehicle.setVehicleName("Car");
+    	
+    	TwoWheeler bike = new TwoWheeler();
+    	bike.setVehicleName("Bike");
+    	bike.setSteeringHandle("Bike Steering Handle");
+    	
+    	FourWheeler car = new FourWheeler();
+    	car.setVehicleName("Porshe");
+    	car.setSteeringWheel("Porsh Steering Wheel");
+    	
+    	
+    	
+    	Configuration con = new Configuration().configure().addAnnotatedClass(Vehicle.class).addAnnotatedClass(FourWheeler.class).addAnnotatedClass(TwoWheeler.class);    	
+    	ServiceRegistry reg= new ServiceRegistryBuilder().applySettings(con.getProperties()).buildServiceRegistry();   	   	
+    	SessionFactory sf=con.buildSessionFactory(reg); 	
+    	Session session=sf.openSession();
+    	session.beginTransaction();
+    	
+    	session.save(vehicle);
+    	session.save(bike);
+    	session.save(car);
+    	
+     	session.getTransaction().commit();
+    	session.close();
     	
     }
     
@@ -33,8 +65,8 @@ public class App
     	Vehicle vehicle=new Vehicle();
     	Vehicle vehicle2=new Vehicle();
 
-    	vehicle.setVehivleName("Car");
-    	vehicle2.setVehivleName("Jeep");
+    	vehicle.setVehicleName("Car");
+    	vehicle2.setVehicleName("Jeep");
     	
     	user1.getVehicle().add(vehicle);
     	user1.getVehicle().add(vehicle2);
@@ -64,8 +96,8 @@ public class App
     	Vehicle vehicle=new Vehicle();
     	Vehicle vehicle2=new Vehicle();
 
-    	vehicle.setVehivleName("Car");
-    	vehicle2.setVehivleName("Jeep");
+    	vehicle.setVehicleName("Car");
+    	vehicle2.setVehicleName("Jeep");
     	
     	user1.getVehicle().add(vehicle);
     	user1.getVehicle().add(vehicle2);
