@@ -20,7 +20,39 @@ public class App
 
     //	userDetailsDB();
     //	setOfAddresses();
-    	oneToOne();
+    //	oneToOne();
+    	Cascade();
+    	
+    }
+    
+    public static void Cascade(){
+    	
+    	UserDetails user1 = new UserDetails();
+    	user1.setUserName("First User");
+    	
+    	Vehicle vehicle=new Vehicle();
+    	Vehicle vehicle2=new Vehicle();
+
+    	vehicle.setVehivleName("Car");
+    	vehicle2.setVehivleName("Jeep");
+    	
+    	user1.getVehicle().add(vehicle);
+    	user1.getVehicle().add(vehicle2);
+    	
+    	Configuration con = new Configuration().configure().addAnnotatedClass(UserDetails.class).addAnnotatedClass(Vehicle.class);    	
+    	ServiceRegistry reg= new ServiceRegistryBuilder().applySettings(con.getProperties()).buildServiceRegistry();   	   	
+    	SessionFactory sf=con.buildSessionFactory(reg); 	
+    	Session session=sf.openSession();
+    	session.beginTransaction();
+    	
+    	session.persist(user1);
+
+
+
+
+    	
+    	session.getTransaction().commit();
+    	session.close();
     	
     }
     
@@ -37,8 +69,8 @@ public class App
     	
     	user1.getVehicle().add(vehicle);
     	user1.getVehicle().add(vehicle2);
-    	vehicle.getUserList().add(user1);
-    	vehicle2.getUserList().add(user1);
+ //   	vehicle.getUserList().add(user1);
+   // 	vehicle2.getUserList().add(user1);
     	
     	
     	Configuration con = new Configuration().configure().addAnnotatedClass(UserDetails.class).addAnnotatedClass(Vehicle.class);    	

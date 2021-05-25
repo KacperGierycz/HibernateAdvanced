@@ -3,6 +3,7 @@ package AdvanceHibernate.Hibernate2;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,10 +23,15 @@ public class UserDetails {
 	private int userId;
 	private String userName;
 	
-	@ManyToMany
+	@OneToMany(cascade=CascadeType.PERSIST)
 	private Collection<Vehicle> vehicle=new ArrayList();
 	
 	
+	
+	
+	
+//	@ManyToMany
+//	private Collection<Vehicle> vehicle=new ArrayList();
 	
 //	@OneToMany(mappedBy="user")
 //	@JoinTable(name="USER_VEHICLE", joinColumns = @JoinColumn(name="USER_ID"),
