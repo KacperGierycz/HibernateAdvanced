@@ -1,7 +1,9 @@
 package AdvanceHibernate.Hibernate2;
 
 import java.util.Date;
+import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -25,9 +27,25 @@ public class App
     //	InheritanceHibernate();
     //	CrudOperation();
     //	TransientPersistentDetached();
-    	PersistAfterDetached();
-    	
+    //	PersistAfterDetached();
+    	HQLqueries();
     }
+    
+    public static void HQLqueries(){
+    	
+    	Configuration con = new Configuration().configure().addAnnotatedClass(UserDetails.class);    	
+    	ServiceRegistry reg= new ServiceRegistryBuilder().applySettings(con.getProperties()).buildServiceRegistry();   	   	
+    	SessionFactory sf=con.buildSessionFactory(reg); 	
+    	Session session=sf.openSession();
+    	session.beginTransaction();
+    	
+    	Query query= session.createQuery("from UserDetails where userId>5"); 
+    	List users= query.list();
+    	session.getTransaction().commit();
+    	session.close();
+    	System.out.println("Size of list result = "+users.size());
+    }
+    
     
     public static void PersistAfterDetached() {
     	Configuration con = new Configuration().configure().addAnnotatedClass(UserDetails.class);    	
