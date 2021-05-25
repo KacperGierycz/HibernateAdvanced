@@ -22,9 +22,37 @@ public class App
     //	setOfAddresses();
     //	oneToOne();
     //	Cascade();
-    	InheritanceHibernate();
+    //	InheritanceHibernate();
+    	CrudOperation();
+   
     	
     }
+    
+    public static void CrudOperation() {   	
+    	
+    	
+    	Configuration con = new Configuration().configure().addAnnotatedClass(UserDetails.class);    	
+    	ServiceRegistry reg= new ServiceRegistryBuilder().applySettings(con.getProperties()).buildServiceRegistry();   	   	
+    	SessionFactory sf=con.buildSessionFactory(reg); 	
+    	Session session=sf.openSession();
+    	session.beginTransaction();
+    	
+    	
+    	for(int i=0;i<10;i++) {
+    	UserDetails user1 = new UserDetails();
+    	user1.setUserName("User "+i);
+    	session.save(user1);
+    	}
+    	
+    	
+    	
+    	
+     	session.getTransaction().commit();
+    	session.close();
+    	
+    	
+    }
+
     
     
     public static void InheritanceHibernate() {
@@ -68,9 +96,9 @@ public class App
     	vehicle.setVehicleName("Car");
     	vehicle2.setVehicleName("Jeep");
     	
-    	user1.getVehicle().add(vehicle);
-    	user1.getVehicle().add(vehicle2);
-    	
+//    	user1.getVehicle().add(vehicle);
+//    	user1.getVehicle().add(vehicle2);
+//    	
     	Configuration con = new Configuration().configure().addAnnotatedClass(UserDetails.class).addAnnotatedClass(Vehicle.class);    	
     	ServiceRegistry reg= new ServiceRegistryBuilder().applySettings(con.getProperties()).buildServiceRegistry();   	   	
     	SessionFactory sf=con.buildSessionFactory(reg); 	
@@ -99,8 +127,8 @@ public class App
     	vehicle.setVehicleName("Car");
     	vehicle2.setVehicleName("Jeep");
     	
-    	user1.getVehicle().add(vehicle);
-    	user1.getVehicle().add(vehicle2);
+//    	user1.getVehicle().add(vehicle);
+//    	user1.getVehicle().add(vehicle2);
  //   	vehicle.getUserList().add(user1);
    // 	vehicle2.getUserList().add(user1);
     	

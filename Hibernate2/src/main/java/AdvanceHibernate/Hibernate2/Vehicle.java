@@ -28,7 +28,7 @@ import org.hibernate.annotations.NotFoundAction;
 //		)
 public class Vehicle {
 	
-	@Id @GeneratedValue(strategy=GenerationType.TABLE)
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int vehicleId;
 	private String vehicleName;
 	

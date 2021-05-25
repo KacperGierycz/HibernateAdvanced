@@ -16,15 +16,15 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table( name = "USER_DETAILS")
+//@Table( name = "USER_DETAILS")
 public class UserDetails {
 	
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int userId;
 	private String userName;
 	
-	@OneToMany(cascade=CascadeType.PERSIST)
-	private Collection<Vehicle> vehicle=new ArrayList();
+//	@OneToMany(cascade=CascadeType.PERSIST)
+//	private Collection<Vehicle> vehicle=new ArrayList();
 	
 	
 	
@@ -76,12 +76,12 @@ public class UserDetails {
 
 
 
-public Collection<Vehicle> getVehicle() {
-		return vehicle;
-	}
-	public void setVehicle(Collection<Vehicle> vehicle) {
-		this.vehicle = vehicle;
-	}
+//public Collection<Vehicle> getVehicle() {
+//		return vehicle;
+//	}
+//	public void setVehicle(Collection<Vehicle> vehicle) {
+//		this.vehicle = vehicle;
+//	}
 	//	public Vehicle getVehicle() {
 //		return vehicle;
 //	}
