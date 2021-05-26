@@ -33,7 +33,27 @@ public class App
     //	CrudOperation();
     //	TransientPersistentDetached();
     //	PersistAfterDetached();
-    	HQLqueries();
+	//  HQLqueries();
+    	Caching();
+    	
+    	
+    }
+    
+    public static void Caching(){
+    	
+    	Configuration con = new Configuration().configure().addAnnotatedClass(UserDetails.class);    	
+    	ServiceRegistry reg= new ServiceRegistryBuilder().applySettings(con.getProperties()).buildServiceRegistry();   	   	
+    	SessionFactory sf=con.buildSessionFactory(reg); 	
+    	Session session=sf.openSession();
+    	session.beginTransaction();
+    	
+    	UserDetails exampleUser=new UserDetails();
+
+    	
+    	
+    	session.getTransaction().commit();
+    	session.close();
+    	
     }
     
     public static void HQLqueries(){
@@ -48,10 +68,10 @@ public class App
     	String userNamex= "User 9";
     	
     	UserDetails exampleUser=new UserDetails();
-    	exampleUser.setUserId(5);
-    	exampleUser.setUserName("User 5");
+    //	exampleUser.setUserId(5);
+    	exampleUser.setUserName("User 1%");
     	
-    	Example example=Example.create(exampleUser);
+    	Example example=Example.create(exampleUser).enableLike();
     			
     	Criteria criteria = session.createCriteria(UserDetails.class)
     			.add(example);
