@@ -11,11 +11,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedNativeQuery;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
+@NamedQuery(name="UserDetails.byId",query="from UserDetails where userId=?")
+@NamedNativeQuery(name="UserDetails.byName", query="select * from userdetails where username = ?",resultClass=UserDetails.class)
 @org.hibernate.annotations.SelectBeforeUpdate
 //@Table( name = "USER_DETAILS")
 public class UserDetails {

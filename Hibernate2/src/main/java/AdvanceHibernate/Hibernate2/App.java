@@ -3,10 +3,12 @@ package AdvanceHibernate.Hibernate2;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
@@ -39,25 +41,49 @@ public class App
     	Session session=sf.openSession();
     	session.beginTransaction();
     	
-    	Query query= session.createQuery("select userName from UserDetails"); 
-    	query.setFirstResult(5);
-    	query.setMaxResults(4);
+    	String minUserId="5";
+    	String userNamex= "User 9";
+    	
+    	Criteria criteria = session.createCriteria(UserDetails.class);
+    	criteria.add(Restrictions.eq("userName", userNamex))
+    			.add(Restrictions.gt("userId", Integer.parseInt(minUserId)));
+    	
+    	
+    	
+ //   	new map(userId, userName)
+//    	max(userID)
+
+    	
+//    	Query query= session.createQuery("from UserDetails where userId > ? and userName =?"); 
+//    	Query query= session.createQuery("from UserDetails where userId > :userID and userName =:userName"); 
+//    	Query query =session.getNamedQuery("UserDetails.byId");
+//    	Query query =session.getNamedQuery("UserDetails.byName");
+    	
+//    	query.setString(0, userNamex);
+//    	query.setInteger(0, Integer.parseInt(minUserId));
+//    	query.setString(1, userNamex);
+//    	query.setInteger("userID", );
+//    	query.setString("userName", userNamex);
+    	
+//    	query.setFirstResult(5);
+//    	query.setMaxResults(4);
 //    	List<UserDetails> users= (List<UserDetails>) query.list();
-    	List<String> users= (List<String>) query.list();
+    	List<UserDetails> users= (List<UserDetails>) criteria.list();
+//    	List<String> users= (List<String>) query.list();
 
     	session.getTransaction().commit();
     	session.close();
     	System.out.println("Size of list result = "+users.size());
     	
-    	for (String user:users) {
-		System.out.println(user);
-		
-	}
+//    	for (String user:users) {
+//		System.out.println(user);
+//		
+//	}
     	
-//    	for (UserDetails user:users) {
-//    		System.out.println(user.getUserName());
-//    		
-//    	}
+    	for (UserDetails user:users) {
+    		System.out.println(user.getUserName());
+    		
+    	}
     }
     
     
