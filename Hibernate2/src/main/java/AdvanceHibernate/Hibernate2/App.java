@@ -8,6 +8,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Example;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -46,8 +47,19 @@ public class App
     	String minUserId="5";
     	String userNamex= "User 9";
     	
+    	UserDetails exampleUser=new UserDetails();
+    	exampleUser.setUserId(5);
+    	exampleUser.setUserName("User 5");
+    	
+    	Example example=Example.create(exampleUser);
+    			
     	Criteria criteria = session.createCriteria(UserDetails.class)
-    			.setProjection(Projections.count("userId"));
+    			.add(example);
+    			
+    			
+    			
+//    	Criteria criteria = session.createCriteria(UserDetails.class)
+//    			.setProjection(Projections.count("userId"));
     		
 //    			.addOrder(Order.desc("userId"));
     	
