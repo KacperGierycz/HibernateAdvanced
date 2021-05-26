@@ -8,6 +8,8 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
@@ -44,9 +46,17 @@ public class App
     	String minUserId="5";
     	String userNamex= "User 9";
     	
-    	Criteria criteria = session.createCriteria(UserDetails.class);
-    	criteria.add(Restrictions.eq("userName", userNamex))
-    			.add(Restrictions.gt("userId", Integer.parseInt(minUserId)));
+    	Criteria criteria = session.createCriteria(UserDetails.class)
+    			.setProjection(Projections.count("userId"));
+    		
+//    			.addOrder(Order.desc("userId"));
+    	
+    	
+    	
+    	
+//    	criteria.add(Restrictions.eq("userName", userNamex))
+//    			.add(Restrictions.gt("userId", Integer.parseInt(minUserId)));
+    	
     	
     	
     	
