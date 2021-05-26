@@ -47,12 +47,24 @@ public class App
     	Session session=sf.openSession();
     	session.beginTransaction();
     	
-    	UserDetails exampleUser=new UserDetails();
-
+    	UserDetails user=(UserDetails) session.get(UserDetails.class, 1);
+    	user.setUserName("Updated User");
     	
+    	
+    	UserDetails user2=(UserDetails) session.get(UserDetails.class, 1);
+
     	
     	session.getTransaction().commit();
     	session.close();
+    	
+    	Session session2=sf.openSession();
+    	session2.beginTransaction();
+    	
+    	UserDetails user3=(UserDetails) session2.get(UserDetails.class, 1);
+
+    	
+    	session2.getTransaction().commit();
+    	session2.close();
     	
     }
     
